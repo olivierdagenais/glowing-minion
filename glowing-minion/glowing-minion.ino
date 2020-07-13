@@ -48,7 +48,7 @@ void loop() {
     }
   }
 
-  if (lightState) {
+  if (!lightState) {
     brightness = 0;
   }
   else {
