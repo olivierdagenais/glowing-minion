@@ -23,23 +23,46 @@ void setup() {
 
 int brightness = 0;
 int fadeAmount = 5;
+int buttonState = 0;
+int lightState = 0;
+
+void notify(String message) {
+  Serial.print(message);
+  Serial.println();
+}
 
 void loop() {
 
   int v = digitalRead(buttonPin);
-  Serial.print(v == 0 ? 1 : 0);
-  Serial.println();
+  if (buttonState == 1) { // button was pressed
+    if (v == 1) { // now it's released
+      notify("Button released");
+      buttonState = 0;
+    }
+  }
+  else { // button wasn't pressed
+    if (v == 0) { // now it's pressed
+      notify("Button pressed");
+      buttonState = 1;
+      lightState = !lightState;
+    }
+  }
+
+  if (lightState) {
+    brightness = 0;
+  }
+  else {
+    brightness = brightness + fadeAmount;
+  
+    if (brightness <= 0 || brightness >= 255) {
+      fadeAmount = -fadeAmount;
+      brightness = brightness + fadeAmount;
+    }  
+  }
 
   for (int c = 0; c < ledPinCount; c++) {
     int digitalPin = ledPins[c];
     analogWrite(digitalPin, brightness);
-  }
-
-  brightness = brightness + fadeAmount;
-
-  if (brightness <= 0 || brightness >= 255) {
-    fadeAmount = -fadeAmount;
-    brightness = brightness + fadeAmount;
   }
 
   delay(30);
