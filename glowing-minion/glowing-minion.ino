@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE in the project root.
 
 /*
- * A program to toggle pulsing LED lights
+ * A program to toggle LED lights
  */
 
 const int buttonPin = 0;
@@ -22,7 +22,6 @@ void setup() {
 }
 
 int brightness = 0;
-int fadeAmount = 5;
 int buttonState = 0;
 int lightState = 0;
 
@@ -52,12 +51,7 @@ void loop() {
     brightness = 0;
   }
   else {
-    brightness = brightness + fadeAmount;
-  
-    if (brightness <= 0 || brightness >= 255) {
-      fadeAmount = -fadeAmount;
-      brightness = brightness + fadeAmount;
-    }  
+    brightness = 255;
   }
 
   for (int c = 0; c < ledPinCount; c++) {
