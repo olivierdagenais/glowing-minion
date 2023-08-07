@@ -8,9 +8,10 @@
 const int buttonPin = 0;
 const int ledPins[] = {
   3,
-  6
+  6,
+  9
 };
-const int ledPinCount = 2;
+const int ledPinCount = 3;
 
 void setup() {
   Serial.begin(9600);
